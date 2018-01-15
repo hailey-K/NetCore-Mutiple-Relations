@@ -1,0 +1,67 @@
+﻿@model IEnumerable<a1OEC.Models.Plot>
+@using Microsoft.AspNetCore.Http;
+
+<h2> @ViewData["Title"]</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+@TempData["messageFromTreatmenty"]
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    <a asp-actopm="Index" asp-route-idenfitierS="@Context.Session.GetString("identifierSession")" asp-route-sort="Farm">Farm Name</a>
+</th>
+                <th>
+                    Crop Name
+                </th>
+                <th>
+                    <a asp-actopm="Index" asp-route-idenfitierS = "@Context.Session.GetString("identifierSession")" asp-route-sort="Variety">Variety Name</a>
+                </th>
+                <th>
+                    Date Planted
+                </th>
+                <th>
+                    <a asp-actopm="Index" asp-route-idenfitierS="@Context.Session.GetString("identifierSession")" asp-route-sort="CEC"> CEC</a>
+                </th>
+                <th>
+                    Treatment Names
+                </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Farm.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Variety.Crop.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Variety.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatePlanted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cec)
+            </td>
+            <td>
+                @foreach (Treatment t in item.Treatment)
+                {
+                   @t.Name <br />
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PlotId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PlotId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PlotId">Delete</a> |
+                <a asp-area="" asp-controller="HKTreatmenty" asp-action="Index" asp-route-plotid="@item.PlotId" asp-route-farmName="@item.Farm.Name">Manage treatments</a>
+
+</td>
+        </tr>
+}
+    </tbody>
+</table>
